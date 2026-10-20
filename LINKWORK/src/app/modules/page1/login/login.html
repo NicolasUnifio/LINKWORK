@@ -1,1 +1,47 @@
-<p>login works!</p>
+<main class="pagina">
+  <mat-card appearance="outlined">
+    <mat-card-header>
+      <mat-card-title>Entrar no LINKWORK</mat-card-title>
+      <mat-card-subtitle>Informe seu e-mail e sua senha</mat-card-subtitle>
+    </mat-card-header>
+
+    <form #form="ngForm" (ngSubmit)="entrar()" novalidate>
+      <mat-card-content>
+        <mat-form-field appearance="outline">
+          <mat-label>E-mail</mat-label>
+          <input matInput type="email" name="email" required email
+                 autocomplete="email"
+                 #emailCtrl="ngModel" [(ngModel)]="email">
+          @if (emailCtrl.hasError('required')) {
+            <mat-error>Informe o e-mail</mat-error>
+          } @else if (emailCtrl.hasError('email')) {
+            <mat-error>Informe um e-mail válido</mat-error>
+          }
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>Senha</mat-label>
+          <input matInput type="password" name="senha" required
+                 autocomplete="current-password"
+                 #senhaCtrl="ngModel" [(ngModel)]="senha">
+          @if (senhaCtrl.hasError('required')) {
+            <mat-error>Informe a senha</mat-error>
+          }
+        </mat-form-field>
+
+        @if (mensagem) {
+          <p role="status">{{ mensagem }}</p>
+        }
+      </mat-card-content>
+
+      <mat-card-actions align="end">
+        <button mat-button type="button" (click)="limpar(form)">
+          Limpar
+        </button>
+        <button mat-flat-button type="submit" [disabled]="form.invalid">
+          Entrar
+        </button>
+      </mat-card-actions>
+    </form>
+  </mat-card>
+</main>
